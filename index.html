@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebBuilder Tech | Criação de Sites</title>
+
+    <!--Importa o CSS do Bootstrap via CDN-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+      }
+
+      .hero {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(13, 110, 253, 0.8) 0%,
+            rgba(102, 16, 242, 0.8) 100%
+          ),
+          url("https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&w=1920")
+            center/cover no-repeat;
+        color: #ffffff;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1;
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 2;
+        animation: slideUp 1s ease-out;
+      }
+
+      .hero h1 {
+        animation: fadeIn 1.2s ease-out 0.3s both;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero p {
+        animation: fadeIn 1.2s ease-out 0.6s both;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero .btn {
+        animation: fadeInUp 1s ease-out 0.9s both;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .hero .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Elementos decorativos */
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 20%;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+        z-index: 1;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        bottom: 20%;
+        left: 10%;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite reverse;
+        z-index: 1;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .carousel-item img {
+        height: 520px;
+        object-fit: cover;
+        border-radius: 16px;
+        transition: transform 0.5s ease;
+      }
+
+      .carousel-item:hover img {
+        transform: scale(1.02);
+      }
+
+      .carousel-caption {
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .contact-icon {
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease;
+      }
+
+      .contact-icon:hover {
+        transform: scale(1.1);
+        color: #0d6efd !important;
+      }
+
+      .input-group .form-control {
+        border-left: 0;
+      }
+
+      .input-group-text {
+        border-right: 0;
+      }
+
+      .input-group-lg .form-control,
+      .input-group-lg .input-group-text {
+        padding: 1rem 1rem;
+      }
+
+      .social-link {
+        transition:
+          transform 0.3s ease,
+          opacity 0.3s ease;
+      }
+
+      .social-link:hover {
+        transform: translateY(-5px);
+        opacity: 0.8;
+      }
+
+      .navbar.custom-navbar {
+        background: rgba(13, 110, 253, 0.96);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .navbar-brand {
+        letter-spacing: 0.05em;
+        font-size: 1.25rem;
+      }
+
+      .navbar-brand .brand-tagline {
+        display: block;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.78);
+        margin-top: 0.125rem;
+      }
+
+      .navbar-toggler {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+      }
+
+      .nav-link {
+        transition:
+          color 0.2s ease,
+          transform 0.2s ease;
+        color: rgba(255, 255, 255, 0.92) !important;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: #ffc107 !important;
+        transform: translateY(-1px);
+      }
+
+      .navbar .btn-primary {
+        box-shadow: 0 10px 25px rgba(13, 110, 253, 0.25);
+      }
+
+      .navbar .btn-primary:hover {
+        background-color: #0047b3;
+        border-color: #0047b3;
+      }
+
+      footer {
+        background-color: #212529;
+        color: #ced4da;
+        padding: 16px 0;
+      }
+
+      /* Botão voltar ao topo */
+      .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+        z-index: 1000;
+      }
+
+      .back-to-top:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top shadow-sm"
+    >
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#inicio">
+          WebBuilder Tech
+          <span class="brand-tagline"><b></b>Biulders</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menuPrincipal"
+          aria-controls="menuPrincipal"
+          aria-expanded="false"
+          aria-label="Alternar navegação"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#inicio"
+                >Início</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#sobre">Sobre</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contato">Contato</a>
+            </li>
+          </ul>
+          <a href="#contato" class="btn btn-primary btn-sm ms-lg-3"
+            >Solicitar Orçamento</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header id="inicio" class="hero">
+      <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">
+          Construímos sites profissionais para empresas de tecnologia
+        </h1>
+        <p class="lead mb-5 fs-5">
+          Design moderno, desempenho rápido e experiência responsiva para sua
+          presença online.
+        </p>
+        <div
+          class="d-flex flex-column flex-sm-row justify-content-center gap-3"
+        >
+          <a href="#contato" class="btn btn-light btn-lg px-4 py-3">
+            <i class="bi bi-calculator me-2"></i>Solicitar Orçamento
+          </a>
+          <button
+            class="btn btn-outline-light btn-lg px-4 py-3"
+            data-bs-toggle="modal"
+            data-bs-target="#modalContato"
+          >
+            <i class="bi bi-chat-dots me-2"></i>Fale Conosco
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Seção Sobre e Carousel -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5 mb-4 mb-lg-0">
+            <h2 id="sobre" class="mb-3">Quem somos</h2>
+            <p>
+              Nossa equipe entrega sites institucionais, portfólios e lojas
+              virtuais utilizando as melhores práticas de usabilidade,
+              performance e SEO.
+            </p>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <strong>Design personalizado</strong> e identidade visual
+                alinhada à sua marca.
+              </li>
+              <li class="mb-2">
+                <strong>Responsividade total</strong> em celulares, tablets e
+                desktops.
+              </li>
+              <li class="mb-2">
+                <strong>Suporte contínuo</strong> após a entrega do projeto.
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-7">
+            <div
+              id="portfolioCarousel"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-indicators">
+                <button
+                  type="button"
+                  data-bs-target="#portfolioCarousel"
+                  data-bs-slide-to="0"
+                  class="active"
+                  aria-current="true"
+                  aria-label="Slide 1"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#portfolioCarousel"
+                  data-bs-slide-to="1"
+                  aria-label="Slide 2"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#portfolioCarousel"
+                  data-bs-slide-to="2"
+                  aria-label="Slide 3"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#portfolioCarousel"
+                  data-bs-slide-to="3"
+                  aria-label="Slide 4"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#portfolioCarousel"
+                  data-bs-slide-to="4"
+                  aria-label="Slide 5"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#portfolioCarousel"
+                  data-bs-slide-to="5"
+                  aria-label="Slide 6"
+                ></button>
+              </div>
+              <div class="carousel-inner rounded-4 shadow-lg">
+                <div class="carousel-item active">
+                  <img
+                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&w=1600"
+                    class="d-block w-100"
+                    alt="Desenvolvimento web"
+                  />
+                  <div
+                    class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded-3 p-4"
+                  >
+                    <h5 class="fw-bold">Landing pages eficientes</h5>
+                    <p class="mb-0">
+                      Design moderno para conversão e reconhecimento de marca.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&w=1600"
+                    class="d-block w-100"
+                    alt="Equipe de desenvolvimento"
+                  />
+                  <div
+                    class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded-3 p-4"
+                  >
+                    <h5 class="fw-bold">Projetos responsivos</h5>
+                    <p class="mb-0">
+                      Experiência fluida em celular, tablet e desktop.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&w=1600"
+                    class="d-block w-100"
+                    alt="Consultoria digital"
+                  />
+                  <div
+                    class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded-3 p-4"
+                  >
+                    <h5 class="fw-bold">Consultoria digital</h5>
+                    <p class="mb-0">
+                      Estratégias web completas para ampliar presença online.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&w=1600"
+                    class="d-block w-100"
+                    alt="Aplicativos móveis"
+                  />
+                  <div
+                    class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded-3 p-4"
+                  >
+                    <h5 class="fw-bold">Aplicativos móveis</h5>
+                    <p class="mb-0">
+                      Desenvolvimento nativo e híbrido para iOS e Android.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&w=1600"
+                    class="d-block w-100"
+                    alt="E-commerce"
+                  />
+                  <div
+                    class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded-3 p-4"
+                  >
+                    <h5 class="fw-bold">Lojas virtuais</h5>
+                    <p class="mb-0">
+                      Plataformas de venda online com checkout seguro.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&w=1600"
+                    class="d-block w-100"
+                    alt="SEO e marketing digital"
+                  />
+                  <div
+                    class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded-3 p-4"
+                  >
+                    <h5 class="fw-bold">SEO e Marketing</h5>
+                    <p class="mb-0">
+                      Otimização para motores de busca e crescimento digital.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#portfolioCarousel"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Anterior</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#portfolioCarousel"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Próximo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accordion de Serviços -->
+    <section id="faq" class="py-5 bg-white">
+      <div class="container">
+        <h2 class="text-center mb-4">Serviços</h2>
+        <div class="accordion" id="accordionFAQ">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                Desenvolvimento de sites institucionais
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse show"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionFAQ"
+            >
+              <div class="accordion-body">
+                Construímos sites institucionais modernos para empresas
+                tecnológicas, com páginas de apresentação, portfólio e contato.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Lojas virtuais e e-commerce
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingTwo"
+              data-bs-parent="#accordionFAQ"
+            >
+              <div class="accordion-body">
+                Lojas virtuais com checkout otimizado, catálogo de produtos e
+                integração com meios de pagamento para vendas online eficientes.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
+                Manutenção e otimização
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordionFAQ"
+            >
+              <div class="accordion-body">
+                Suporte técnico, atualizações de conteúdo, segurança e melhoria
+                de performance para manter seu site rápido e seguro.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Contato -->
+    <section id="contato" class="py-5 bg-light">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="h-100 d-flex flex-column justify-content-center">
+              <h2 class="mb-4">Vamos conversar sobre seu projeto</h2>
+              <p class="lead mb-4">
+                Entre em contato conosco para discutir suas ideias e receber uma
+                proposta personalizada.
+              </p>
+              <div class="mb-4">
+                <div class="d-flex align-items-center mb-3">
+                  <i
+                    class="bi bi-envelope-fill text-primary me-3 fs-4 contact-icon"
+                  ></i>
+                  <div>
+                    <strong>Email</strong><br />
+                    <a
+                      href="mailto:contato@webbuildertech.com"
+                      class="text-decoration-none"
+                      >eduadorpontesfontes3@gmail.com</a
+                    >
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                  <i
+                    class="bi bi-telephone-fill text-primary me-3 fs-4 contact-icon"
+                  ></i>
+                  <div>
+                    <strong>Telefone</strong><br />
+                    <a href="tel:+5511999999999" class="text-decoration-none"
+                      >(14) 99866-3146</a
+                    >
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i
+                    class="bi bi-geo-alt-fill text-primary me-3 fs-4 contact-icon"
+                  ></i>
+                  <div>
+                    <strong>Localização</strong><br />
+                    Marilia, SP - Brasil
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-3">Siga-nos</h5>
+                <div class="d-flex gap-3">
+                  <a
+                    href="https://www.linkedin.com/in/epontes/"
+                    class="text-primary fs-4 social-link"
+                    title="LinkedIn"
+                  >
+                    <i class="bi bi-linkedin"></i>
+                  </a>
+                  <a
+                    href="https://github.com/yasuoli2"
+                    class="text-primary fs-4 social-link"
+                    title="GitHub"
+                  >
+                    <i class="bi bi-github"></i>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/edusafirad1/"
+                    class="text-primary fs-4 social-link"
+                    title="Instagram"
+                  >
+                    <i class="bi bi-instagram"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card shadow-lg border-0 rounded-4">
+              <div class="card-body p-4">
+                <h3 class="card-title text-center mb-4">Envie sua mensagem</h3>
+                <form>
+                  <div class="mb-3">
+                    <label for="nome" class="form-label fw-semibold"
+                      >Nome</label
+                    >
+                    <div class="input-group input-group-lg rounded-4 shadow-sm">
+                      <span
+                        class="input-group-text bg-white text-primary rounded-start-4 border-end-0"
+                      >
+                        <i class="bi bi-person-fill"></i>
+                      </span>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg rounded-end-4 border-start-0"
+                        id="nome"
+                        placeholder="Seu nome"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold"
+                      >E-mail</label
+                    >
+                    <div class="input-group input-group-lg rounded-4 shadow-sm">
+                      <span
+                        class="input-group-text bg-white text-primary rounded-start-4 border-end-0"
+                      >
+                        <i class="bi bi-envelope-fill"></i>
+                      </span>
+                      <input
+                        type="email"
+                        class="form-control form-control-lg rounded-end-4 border-start-0"
+                        id="email"
+                        placeholder="seu@email.com"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="mensagem" class="form-label fw-semibold"
+                      >Mensagem</label
+                    >
+                    <div class="input-group input-group-lg rounded-4 shadow-sm">
+                      <span
+                        class="input-group-text bg-white text-primary rounded-start-4 border-end-0 align-items-start py-3"
+                      >
+                        <i class="bi bi-chat-text-fill fs-5 mt-1"></i>
+                      </span>
+                      <textarea
+                        class="form-control form-control-lg rounded-end-4 border-start-0"
+                        id="mensagem"
+                        rows="5"
+                        placeholder="Conte-nos sobre seu projeto..."
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg px-5 py-3 fw-semibold"
+                    >
+                      <i class="bi bi-send me-2"></i>Enviar mensagem
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Botão de Modal -->
+    <div class="text-center py-4">
+      <button
+        class="btn btn-outline-primary btn-lg"
+        data-bs-toggle="modal"
+        data-bs-target="#modalContato"
+      >
+        Abrir formulário de contato
+      </button>
+    </div>
+
+    <div
+      class="modal fade"
+      id="modalContato"
+      tabindex="-1"
+      aria-labelledby="modalContatoLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalContatoLabel">
+              Formulário de Contato
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="modalNome" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="modalNome"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="modalEmail" class="form-label">E-mail</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="modalEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="modalMensagem" class="form-label">Mensagem</label>
+                <textarea
+                  class="form-control"
+                  id="modalMensagem"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
+            <button type="button" class="btn btn-primary">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botão Voltar ao Topo -->
+    <button class="back-to-top" id="backToTop" title="Voltar ao topo">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container text-center py-3">
+        <p class="mb-0 small">
+          Desenvolvedor: Eduardo Pontes | Curso: Ciência da Computação -
+          Disciplina: Desenvolvimento Front-end Web | Ano: 2026
+        </p>
+      </div>
+    </footer>
+
+    <!-- Importa o JavaScript do Bootstrap via CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Script para botão voltar ao topo -->
+    <script>
+      const backToTopButton = document.getElementById("backToTop");
+
+      // Mostrar/ocultar botão baseado no scroll
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.style.display = "block";
+        } else {
+          backToTopButton.style.display = "none";
+        }
+      });
+
+      // Função para voltar ao topo
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    </script>
+  </body>
+</html>
